@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Collections {% endblock %}
+
+{% block body %}
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <h3>Collections {{ collections|length }} <a class="btn btn-sm btn-outline-secondary" href="{{ path('collection_create') }}">Add Collection</a></h3>
+            <div class="row">
+                {{ include('collections/items.html.twig', { collections: collections}) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

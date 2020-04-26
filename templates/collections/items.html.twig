@@ -1,0 +1,16 @@
+{% for collection in collections %}
+    <div class="col-md-3">
+        <div class="card mb-3 shadow-sm" style="border: none">
+            <img src="{{ asset('images/folder2.jpg') }}" alt="" class="bd-placeholder-img card-img-top" width="100%" height="225" >
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">{{ collection.name }}</small>
+                    <div class="btn-group">
+                        <a href="{{ path('collection_item', {'id': collection.id }) }}" class="btn btn-sm btn-outline-secondary">View</a>
+                        <a href="{{ path('collection_edit', {'id': collection.id }) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

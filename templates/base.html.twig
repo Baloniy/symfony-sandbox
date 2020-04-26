@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+        {% endblock %}
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-dark bg-dark shadow-sm">
+                <div class="container d-flex justify-content-between">
+                    <div class="d-flex">
+                        <a href="{{ path('homepage') }}" class="navbar-brand d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                            <strong>Library</strong>
+                        </a>
+                        <nav class="blog-pagination">
+                            <a class="btn btn-outline-success" href="{{ path('collections') }}">Collections</a>
+                            <a class="btn btn-outline-success" href="{{ path('files_new') }}" tabindex="-1" aria-disabled="true">Upload file</a>
+                        </nav>
+                    </div>
+                    <div class="d-flex">
+                        <form class="form-inline mr-md-3">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <div class="dropdown d-none d-md-flex show">
+                                <button class="btn-account" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <span class="user-avatar user-avatar-md">
+                                        <img src="{{ asset('images/profile.jpg') }}" alt="{{ app.user.username }}" title="{{ app.user.username }}">
+                                    </span>
+                                </button>
+                                <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 56px; left: 0px;">
+                                    <a class="dropdown-item" href="#">Profile</a>
+                                    <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <a class="btn btn-success" href="{{ path('app_login') }}">Sign in</a>
+                            <a class="btn btn-success ml-2" href="{{ path('app_register') }}">Register</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main role="main">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+
+            {% block body %}{% endblock %}
+
+            <footer class="text-muted">
+                <div class="container">
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                </div>
+            </footer>
+        </main>
+        {% block javascripts %}
+            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        {% endblock %}
+    </body>
+</html>
